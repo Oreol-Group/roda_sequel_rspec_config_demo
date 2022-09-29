@@ -1,5 +1,0 @@
-db:
-  pool: 10
-  timeout: 10000
-  max_connections: 5
-  shared_buffers: 512MB
