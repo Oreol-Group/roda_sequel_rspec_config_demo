@@ -7,10 +7,11 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'rake'
 gem 'puma'
 
-gem 'roda'
-gem 'rack-unreloader'
+gem 'roda', require: 'roda'
+gem 'rack', '= 2.2.4'
+gem 'rack-unreloader', require: 'rack/unreloader'
 
-gem 'i18n'
+gem 'i18n', require: 'i18n'
 gem 'config'
 
 gem 'sequel'
@@ -18,6 +19,7 @@ gem 'sequel_pg', require: 'sequel'
 
 group :development do
   gem 'pry'
+  gem 'rubocop', require: false
 end
 
 group :test do
