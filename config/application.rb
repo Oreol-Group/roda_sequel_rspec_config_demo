@@ -5,6 +5,7 @@ require 'json'
 class App < Roda
   include ApiErrors
 
+  plugin :environments
   plugin :hash_routes
   plugin :typecast_params
   plugin :json
@@ -58,7 +59,7 @@ class App < Roda
   route do |r|
     # r.hash_routes
     r.root do
-      {status: :ok, message: I18n.t('hello')}
+      {status: :ok, message: I18n.t('hello'), page_size: Settings.pagination.page_size }
     end
   end
 end

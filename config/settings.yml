@@ -1,0 +1,7 @@
+db:
+  adapter: postgresql
+  host: localhost
+  user: <%= ENV['APP_DATABASE_USER'] %>
+  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+pagination:
+  page_size: 20

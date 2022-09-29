@@ -1,0 +1,3 @@
+db:
+  database: app_test
+  max_connections: 1
