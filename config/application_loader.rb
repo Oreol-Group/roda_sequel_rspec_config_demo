@@ -7,7 +7,11 @@ module ApplicationLoader
     # init_config
     # init_db
     require_app
-    # init_app
+    init_app
+  end
+
+  def self.root
+    @@root ||= File.expand_path('..', __dir__)
   end
 
   private
@@ -21,26 +25,25 @@ module ApplicationLoader
   # end
 
   def require_app
-    # require_dir 'app/helpers'
+    require_dir 'config/initializers'
+    require_dir 'app/serializers'
+    require_dir 'app/helpers'
     # require_file 'app/services/basic_service'
-    # require_dir 'app/contracts'
-    # require_dir 'app'
+    require_dir 'app/contracts'
+    require_dir 'app/services'
+    require_dir 'app'
   end
 
-  # def init_app
-  #   require_dir 'config/initializers'
-  # end
+  def init_app
+    require_dir 'config/initializers'
+  end
 
   def require_file(path)
-    require File.join(root, path)
+    require File.join(self.root, path)
   end
 
   def require_dir(path)
-    path = File.join(root, path)
+    path = File.join(self.root, path)
     Dir["#{path}/**/*.rb"].each { |file| require file }
-  end
-
-  def root
-    File.expand_path('..', __dir__)
   end
 end

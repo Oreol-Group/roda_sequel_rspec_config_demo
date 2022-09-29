@@ -41,7 +41,8 @@ $ bin/puma
 ```
 ## HTTP-requests to the app
 ```
-curl --url "http://localhost:9292" -v
+$ curl --url "http://localhost:9292" -v
+$ http :9292
 ```
 ### Author
 * it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config

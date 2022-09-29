@@ -3,6 +3,8 @@
 require 'json'
 
 class App < Roda
+  include ApiErrors
+
   plugin :hash_routes
   plugin :typecast_params
   plugin :json
@@ -29,16 +31,16 @@ class App < Roda
     # https://sequel.jeremyevans.net/rdoc/
     when Sequel::NoMatchingRow 
       response.status = 404
-      error_response e.message, meta: {'meta' => ::I18n.t(:not_found, scope: 'api.errors')}
+      error_response e.message, meta: {'meta' => I18n.t(:not_found, scope: 'api.errors')}
     when Sequel::UniqueConstraintViolation 
       response.status = 422
-      error_response e.message, meta: {'meta' => ::I18n.t(:not_unique, scope: 'api.errors')}
+      error_response e.message, meta: {'meta' => I18n.t(:not_unique, scope: 'api.errors')}
     when Roda::RodaPlugins::TypecastParams::Error 
       response.status = 422
-      error_response e.message, meta: {'meta' => ::I18n.t(:missing_parameters, scope: 'api.errors')}
+      error_response e.message, meta: {'meta' => I18n.t(:missing_parameters, scope: 'api.errors')}
     when KeyError 
       response.status = 422
-      error_response e.message, meta: {'meta' => ::I18n.t(:missing_parameters, scope: 'api.errors')}
+      error_response e.message, meta: {'meta' => I18n.t(:missing_parameters, scope: 'api.errors')}
     else
       response.status = 500
       error_response e.message, meta: {'meta' => e.class }
@@ -56,7 +58,7 @@ class App < Roda
   route do |r|
     # r.hash_routes
     r.root do
-      {status: :ok}
+      {status: :ok, message: I18n.t('hello')}
     end
   end
 end

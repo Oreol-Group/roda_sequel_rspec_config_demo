@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "give the application an appropriate name"
 task :setup, [:name] do |t, args|
   unless name = args[:name]

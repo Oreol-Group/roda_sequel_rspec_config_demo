@@ -17,6 +17,8 @@ gem 'config'
 gem 'sequel'
 gem 'sequel_pg', require: 'sequel'
 
+gem 'activesupport', require: false
+
 group :development do
   gem 'pry'
   gem 'rubocop', require: false
