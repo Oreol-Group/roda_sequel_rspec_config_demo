@@ -31,6 +31,7 @@ else
   ENV['MY_APP_DATABASE_URL'] ||= "postgres://my_app:mypassword@127.0.0.1:5432/my_app_development"
 end
 ```
+According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` from `config/settings/*.yml` and `config/*.yml`
 ## Environment setup
 ```bash
 $ bundle install

@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
+require 'roda'
 require 'json'
 
 class App < Roda
-  include ApiErrors
+  # https://github.com/jeremyevans/rack-unreloader#classes-split-into-multiple-files-
+  Unreloader.require 'app/helpers'
+  Unreloader.require 'app/serializers'
 
+  include ::ApiErrors
+
+  # https://roda.jeremyevans.net/documentation.html
   plugin :environments
   plugin :hash_routes
   plugin :typecast_params
@@ -54,7 +60,7 @@ class App < Roda
     #cookie_options: {secure: ENV['RACK_ENV'] != 'test'}, # Uncomment if only allowing https:// access
     secret: ENV.send((ENV['RACK_ENV'] == 'development' ? :[] : :delete), 'APP_SESSION_SECRET')
 
-  Unreloader.require('../app/routes', :delete_hook=>proc{|f| hash_branch(File.basename(f).delete_suffix('.rb'))}){}
+  Unreloader.require('app/routes', :delete_hook=>proc{|f| hash_branch(File.basename(f).delete_suffix('.rb'))}){}
 
   route do |r|
     # r.hash_routes

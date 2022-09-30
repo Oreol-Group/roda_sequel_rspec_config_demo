@@ -1,2 +1,2 @@
 db:
-  database: app_production
+  max_connections: 100
