@@ -31,7 +31,7 @@ else
   ENV['MY_APP_DATABASE_URL'] ||= "postgres://my_app:mypassword@127.0.0.1:5432/my_app_development"
 end
 ```
-According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` from `config/settings/*.yml` and `config/*.yml`
+According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` in `config/settings/*.yml` and `config/*.yml`
 ## Environment setup
 ```bash
 $ bundle install
@@ -49,10 +49,31 @@ $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/puma
 $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/console
 ```
 ## HTTP-requests to the app
-```
+```bash
 $ curl --url "http://localhost:9292" -v
 $ http :9292
 ```
-### Author
+## Additional tips
+1. Use a timestamp for the new migration filename:
+```bash
+$ date -u +%Y%m%d%H%M%S
+```
+2. After adding additional migration files, you can run the migrations:
+```bash
+$ rake dev_up  
+$ rake test_up 
+$ rake prod_up 
+```
+3. After modifying the migration file, you can drop down and then back up the migrations with a single command:
+```bash
+$ rake dev_bounce  
+$ rake test_bounce 
+```
+4. Roll back database migration all the way down:
+```bash
+$ rake dev_down  
+$ rake test_down 
+```
+## Author
 * it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config
 * Inspired by [Jeremy Evans](https://github.com/jeremyevans/roda-sequel-stack) and [Evgeniy Fateev](https://github.com/psylone/ads-microservice)

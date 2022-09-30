@@ -10,7 +10,7 @@ module ApplicationLoader
     init_app
   end
 
-  def self.root
+  def root
     @@root ||= File.expand_path('..', __dir__)
   end
 
@@ -22,6 +22,7 @@ module ApplicationLoader
 
   def init_db
     require_file 'config/initializers/db'
+    require_file 'config/initializers/models'
   end
 
   def require_app

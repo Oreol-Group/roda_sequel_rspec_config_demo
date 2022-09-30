@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'sequel/core'
 
 # Delete APP_DATABASE_URL from the environment, so it isn't accidently
@@ -9,36 +8,18 @@ DB = Sequel.connect(ENV.delete('APP_DATABASE_URL'), Settings.db&.to_hash&.compac
 # Load Sequel Database/Global extensions here
 DB.extension :pagination
 
+# https://github.com/jeremyevans/sequel/blob/master/lib/sequel/extensions/schema_dumper.rb
+DB.extension :schema_dumper
 
-require 'sequel/model'
+# Ask Sequel to use the Postgres JSON extension with your database
+DB.extension :pg_array, :pg_json
 
-if ENV['RACK_ENV'] == 'development'
-  Sequel::Model.cache_associations = false
-end
+# https://github.com/jeremyevans/sequel/blob/7a70ac6d719c21bcb404adf6159cbd2769d9246f/lib/sequel/extensions/pg_timestamptz.rb
+DB.extension :pg_timestamptz
 
-Sequel::Model.plugin :auto_validations
-Sequel::Model.plugin :prepared_statements
-Sequel::Model.plugin :require_valid_schema
-Sequel::Model.plugin :subclasses unless ENV['RACK_ENV'] == 'development'
-Sequel::Model.plugin :validation_helpers
-Sequel::Model.plugin :timestamps, update_on_create: true
+# https://github.com/jeremyevans/sequel/blob/7a70ac6d719c21bcb404adf6159cbd2769d9246f/lib/sequel/extensions/pg_json.rb
+DB.wrap_json_primitives = true
 
-Sequel.default_timezone = :utc
-
-unless defined?(Unreloader)
-  require 'rack/unreloader'
-  Unreloader = Rack::Unreloader.new(reload: false)
-end
-
-Unreloader.require('app/models'){|f| Sequel::Model.send(:camelize, File.basename(f).delete_suffix('.rb'))}
-
-if %w'development test'.include?(ENV['RACK_ENV'])
-  require 'logger'
-  LOGGER = Logger.new($stdout)
-  LOGGER.level = Logger::FATAL if ENV['RACK_ENV'] == 'test'
-  DB.loggers << LOGGER
-end
-
-unless ENV['RACK_ENV'] == 'development'
-  Sequel::Model.freeze_descendents
-end
+# Include the Postgres JSON Operations extension
+# https://sequel.jeremyevans.net/rdoc/files/doc/postgresql_rdoc.html
+Sequel.extension(:pg_json_ops)
