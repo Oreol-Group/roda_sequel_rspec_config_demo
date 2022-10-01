@@ -6,17 +6,17 @@ Sequel.migration do
     create_table(:reference_books) do
       primary_key :id, type: :Bignum
       column :volume, "character varying", null: false
-      column :description, "jsonb"
+      column :content, "jsonb"
       column :created_at, "timestamp with time zone", null: false
       column :updated_at, "timestamp with time zone", null: false
     end
 
-    run 'CREATE INDEX reference_books_gin ON reference_books USING GIN(description);'
+    run 'CREATE INDEX reference_books_gin ON reference_books USING GIN(content);'
   end
 
   down do
     alter_table(:reference_books) do
-      drop_index :description, name: :reference_books_gin
+      drop_index :content, name: :reference_books_gin
     end
     drop_table(:reference_books)
   end

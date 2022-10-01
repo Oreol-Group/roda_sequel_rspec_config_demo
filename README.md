@@ -73,7 +73,12 @@ $ rake test_bounce
 ```bash
 $ rake dev_down  
 $ rake test_down 
+$ rake prod_down 
 ```
+5. The list of all tasks is called by the command:
+```bash
+$ bin/rake --tasks
+````
 ## Author
 * it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config
 * Inspired by [Jeremy Evans](https://github.com/jeremyevans/roda-sequel-stack) and [Evgeniy Fateev](https://github.com/psylone/ads-microservice)

@@ -55,6 +55,20 @@ migrate = lambda do |env, version|
   Sequel::Migrator.apply(DB, 'db/migrations', version)
 end
 
+seeds = lambda do |env|
+  ENV['RACK_ENV'] = env
+  begin
+    require_relative '.env.rb'
+  rescue LoadError
+  end
+  require 'config'
+  require_relative 'config/initializers/config'
+  require_relative 'config/initializers/db'
+  require_relative 'config/initializers/models'
+  require 'logger'
+  require_relative 'db/seeds'
+end
+
 dump_schema = lambda do 
   schema = DB.dump_schema_migration
   body = '# Version: ' + Time.now.strftime("%Y%m%d%H%M%S\n") + schema
@@ -102,4 +116,25 @@ end
 desc "Migrate production database to latest version"
 task :prod_up do
   migrate.call('production', nil)
+end
+
+desc "Migrate production database to all the way down"
+task :prod_down do
+  migrate.call('production', 0)
+  dump_schema.call()
+end
+
+desc "Seed test database"
+task :test_seed do
+  seeds.call('test')
+end
+
+desc "Seed development database"
+task :dev_seed do
+  seeds.call('development')
+end
+
+desc "Seed production database"
+task :prod_seed do
+  seeds.call('production')
 end

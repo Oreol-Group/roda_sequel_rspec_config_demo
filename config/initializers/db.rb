@@ -23,3 +23,5 @@ DB.wrap_json_primitives = true
 # Include the Postgres JSON Operations extension
 # https://sequel.jeremyevans.net/rdoc/files/doc/postgresql_rdoc.html
 Sequel.extension(:pg_json_ops)
+
+Sequel.default_timezone = :utc

@@ -1,3 +1,6 @@
 ru:
   model:
     errors:
+      reference_book:
+        volume:
+          blank: 'Укажите название тома'

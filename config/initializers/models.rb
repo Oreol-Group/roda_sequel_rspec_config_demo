@@ -12,8 +12,6 @@ Sequel::Model.plugin :subclasses unless ENV['RACK_ENV'] == 'development'
 Sequel::Model.plugin :validation_helpers
 Sequel::Model.plugin :timestamps, update_on_create: true
 
-Sequel.default_timezone = :utc
-
 unless defined?(Unreloader)
   require 'rack/unreloader'
   Unreloader = Rack::Unreloader.new(reload: false)
