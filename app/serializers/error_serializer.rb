@@ -13,7 +13,20 @@ module ErrorSerializer
     { errors: build_model_errors(model.errors) }
   end
 
+  def from_hash(message)
+    { errors: build_hash_error(message) }
+  end
+
   private
+
+
+  def build_hash_error(message)
+    key = message.keys.first
+    value = I18n.t(:blank, scope: "model.errors.reference_book.#{key}")
+    error = { detail: value }
+    error[:source] = { pointer: "/data/attributes/#{key}" }
+    error
+  end
 
   def build_errors(error_messages, meta)
     error_messages.map { |message| build_error(message, meta) }

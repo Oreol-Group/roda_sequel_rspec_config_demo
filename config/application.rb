@@ -9,6 +9,8 @@ class App < Roda
 
   include ::ApiErrors
 
+  attr_reader :dry_validation_response
+
   def self.root
     ApplicationLoader.root
   end
@@ -51,6 +53,9 @@ class App < Roda
     when KeyError 
       response.status = 422
       error_response e.message, meta: {'meta' => I18n.t(:missing_parameters, scope: 'api.errors')}
+    when NameError # Dry::Validation::Result  -  #  3-d catch
+      response.status = 422
+      error_response @dry_validation_response
     else
       response.status = 500
       error_response e.message, meta: {'meta' => e.class }
@@ -66,9 +71,9 @@ class App < Roda
   Unreloader.require('app/routes', :delete_hook=>proc{|f| hash_branch(File.basename(f).delete_suffix('.rb'))}){}
 
   route do |r|
-    # r.hash_routes
     r.root do
       {status: :ok, message: I18n.t('hello'), page_size: Settings.pagination.page_size }
     end
+    r.hash_routes
   end
 end

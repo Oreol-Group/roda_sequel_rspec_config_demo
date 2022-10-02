@@ -1,7 +1,7 @@
 # RodaSequelRspecConfig
 Application skeleton based on Roda
 
-RodaSequelRspecConfig is a Rails-like application skeleton for an app using [Roda](https://github.com/jeremyevans/roda) as the web framework, [Sequel](https://github.com/jeremyevans/sequel) as the database library, [Rspec](https://github.com/rspec/rspec-metagem) as test suite, and is being configured using [Config](https://github.com/rubyconfig/config).
+RodaSequelRspecConfig is a preconfigured Rails-like application skeleton for an app using [Roda](https://github.com/jeremyevans/roda) as the web framework, [Sequel](https://github.com/jeremyevans/sequel) as the database library, [Rspec](https://github.com/rspec/rspec-metagem) as test suite, and is being configured using [Config](https://github.com/rubyconfig/config).
 
 It's set up so you can clone this repository and base your application on it:
 ```bash

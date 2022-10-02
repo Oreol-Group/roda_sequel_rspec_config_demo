@@ -4,12 +4,11 @@ require "dry/validation"
 
 class ContentParamsContract < Dry::Validation::Contract
   params do
-    required(:content).hash do
-      required(:name).value(:string)
-      required(:link).value(:string)
-      required(:author).value(:string)
-      required(:release).value(:integer)
-      required(:series).value(:string)
-    end
+    required(:volume).filled(:string)
   end
+
+  # # https://dry-rb.org/gems/dry-validation/1.8/
+  # rule(:volume) do
+  #   key.failure( I18n.t(:missing_parameters, scope: 'api.errors') ) if values[:volume] != 'some_string'  #  3- catch
+  # end
 end
