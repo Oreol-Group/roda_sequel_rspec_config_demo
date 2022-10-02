@@ -141,7 +141,7 @@ else
 end
 END
 
-  %w'config/application.rb config/initializers/db.rb config.ru config/environment.rb rspec/application_helper.rb'.each do |f|
+  %w'config/application.rb config/initializers/db.rb config.ru config/environment.rb spec/application_helper.rb'.each do |f|
     File.write(f, File.read(f).gsub('App ', name+' ').gsub('App.', name+'.').gsub("App'", name+"'").gsub("App}", name+'}').gsub('APP_', upper_name+'_'))
   end
   %w'app/routes/api/v1/reference_books.rb spec/routes/api/v1/reference_books_spec.rb'.each do |f|
@@ -149,6 +149,5 @@ END
   end
 
   File.write(__FILE__, File.read(__FILE__).split("\n")[0...(last_line-2)].join("\n") << "\n")
-  File.write('.gitignore', "/.env.rb\n")
-  FileUtils.remove_dir('.github')
+  FileUtils.remove_dir('.git')
 end
