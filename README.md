@@ -1,7 +1,7 @@
 # RodaSequelRspecConfig
 Application skeleton based on Roda
 
-RodaSequelRspecConfig is a Rails-like application skeleton for an app using Roda as the web framework, Sequel as the database library, Rspec as test suite, and is configured using [Config](https://github.com/rubyconfig/config).
+RodaSequelRspecConfig is a Rails-like application skeleton for an app using [Roda](https://github.com/jeremyevans/roda) as the web framework, [Sequel](https://github.com/jeremyevans/sequel) as the database library, [Rspec](https://github.com/rspec/rspec-metagem) as test suite, and is being configured using [Config](https://github.com/rubyconfig/config).
 
 It's set up so you can clone this repository and base your application on it:
 ```bash
@@ -53,6 +53,10 @@ $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/console
 $ curl --url "http://localhost:9292" -v
 $ http :9292
 ```
+## Run tests
+```bash
+$ bin/rspec
+```
 ## Additional tips
 1. Use a timestamp for the new migration filename:
 ```bash
@@ -75,10 +79,21 @@ $ rake dev_down
 $ rake test_down 
 $ rake prod_down 
 ```
-5. The list of all tasks is called by the command:
+5. Feed the database with initial data:
+```bash
+$ rake dev_seed
+$ rake test_seed
+$ rake prod_seed
+```
+6. The list of all tasks is called by the command:
 ```bash
 $ bin/rake --tasks
-````
+```
+7. Making a database's schema dump and [other manipulations](https://sequel.jeremyevans.net/rdoc/files/doc/bin_sequel_rdoc.html) from the command line interface
+```bash
+$ bin/sequel -d postgres://user:pass@host/database_name
+$ bin/sequel -D postgres://user:pass@host/database_name
+```
 ## Author
 * it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config
 * Inspired by [Jeremy Evans](https://github.com/jeremyevans/roda-sequel-stack) and [Evgeniy Fateev](https://github.com/psylone/ads-microservice)

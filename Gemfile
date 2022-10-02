@@ -19,6 +19,9 @@ gem 'sequel_pg', require: 'sequel'
 
 gem 'activesupport', require: false
 
+gem 'dry-initializer'
+gem 'dry-validation'
+
 group :development do
   gem 'pry'
   gem 'rubocop', require: false

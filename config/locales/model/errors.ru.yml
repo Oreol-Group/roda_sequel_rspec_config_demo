@@ -3,4 +3,4 @@ ru:
     errors:
       reference_book:
         volume:
-          blank: 'Укажите название тома'
+          blank: 'Добавьте название темы'

@@ -1,4 +1,4 @@
-# Version: 20221001031742
+# Version: 20221001232402
 Sequel.migration do
   change do
     create_table(:reference_books, :ignore_index_errors=>true) do
@@ -9,6 +9,7 @@ Sequel.migration do
       DateTime :updated_at, :null=>false
       
       index [:content], :name=>:reference_books_gin
+      index [:volume]
     end
     
     create_table(:schema_migrations) do

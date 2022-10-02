@@ -1,16 +1,21 @@
 # frozen_string_literal: true
+
+# CODE EXECUTION ORDER IS IMPORTANT DURING SEQUEL INITIALIZATION PROCESS.
+# See http://sequel.jeremyevans.net/rdoc/files/doc/code_order_rdoc.html
+
 require 'sequel/model'
 
 if ENV['RACK_ENV'] == 'development'
   Sequel::Model.cache_associations = false
 end
 
-Sequel::Model.plugin :auto_validations
+# https://sequel.jeremyevans.net/plugins.html
 Sequel::Model.plugin :prepared_statements
 Sequel::Model.plugin :require_valid_schema
-Sequel::Model.plugin :subclasses unless ENV['RACK_ENV'] == 'development'
 Sequel::Model.plugin :validation_helpers
+Sequel::Model.plugin :json_serializer
 Sequel::Model.plugin :timestamps, update_on_create: true
+Sequel::Model.plugin :subclasses unless ENV['RACK_ENV'] == 'development'
 
 unless defined?(Unreloader)
   require 'rack/unreloader'

@@ -5,7 +5,7 @@ Sequel.migration do
   up do
     create_table(:reference_books) do
       primary_key :id, type: :Bignum
-      column :volume, "character varying", null: false
+      column :volume, "character varying", null: false, index: true
       column :content, "jsonb"
       column :created_at, "timestamp with time zone", null: false
       column :updated_at, "timestamp with time zone", null: false

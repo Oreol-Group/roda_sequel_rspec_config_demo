@@ -1,5 +1,13 @@
 # frozen_string_literal: true
+
+# CODE EXECUTION ORDER IS IMPORTANT DURING SEQUEL INITIALIZATION PROCESS.
+# See http://sequel.jeremyevans.net/rdoc/files/doc/code_order_rdoc.html
+
 require 'sequel/core'
+
+# Include the Postgres JSON Operations extension
+# https://sequel.jeremyevans.net/rdoc/files/doc/postgresql_rdoc.html
+Sequel.extension(:pg_json_ops)
 
 # Delete APP_DATABASE_URL from the environment, so it isn't accidently
 # passed to subprocesses.  APP_DATABASE_URL may contain passwords.
@@ -19,9 +27,5 @@ DB.extension :pg_timestamptz
 
 # https://github.com/jeremyevans/sequel/blob/7a70ac6d719c21bcb404adf6159cbd2769d9246f/lib/sequel/extensions/pg_json.rb
 DB.wrap_json_primitives = true
-
-# Include the Postgres JSON Operations extension
-# https://sequel.jeremyevans.net/rdoc/files/doc/postgresql_rdoc.html
-Sequel.extension(:pg_json_ops)
 
 Sequel.default_timezone = :utc

@@ -10,7 +10,7 @@ DB[:reference_books].insert(volume: 'references',
 DB[:reference_books].insert(volume: 'indexes',
   content: Sequel.pg_json_wrap([
     {"name": "Documentation" , "link": "https://sequel.jeremyevans.net"},
-    {"name": "Reposotory" , "link": "https://github.com/jeremyevans"},
+    {"name": "Repository" , "link": "https://github.com/jeremyevans"},
     {"name": "Publishing" , "link": "https://medium.com/@barryf"}
   ]), created_at: Time.now, updated_at: Time.now
 )

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'roda'
 require 'json'
 
 class App < Roda
@@ -9,6 +8,10 @@ class App < Roda
   Unreloader.require 'app/serializers'
 
   include ::ApiErrors
+
+  def self.root
+    ApplicationLoader.root
+  end
 
   # https://roda.jeremyevans.net/documentation.html
   plugin :environments

@@ -3,4 +3,4 @@ en:
     errors:
       reference_book:
         volume:
-          blank: 'Add volume name'
+          blank: 'Add a topic title'
