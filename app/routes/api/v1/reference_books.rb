@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require './app/helpers/pagination_links'
-require './app/helpers/validations'
-require './app/helpers/api_errors'
-
 class App
   include PaginationLinks
   include Validations
@@ -27,14 +23,14 @@ class App
 
       r.post do
         volume_params = validate_with!(::ContentParamsContract)
-        @dry_validation_response = volume_params.errors.to_hash
-        # raise Roda::RodaPlugins::TypecastParams::Error if volume_params.is_a?(Dry::Validation::Result)  #  2-nd catch
-
+        error = volume_params.errors.to_hash
+        #  the 3-d Dry::Validation's catch
+        @dry_validation_response = error if error.present?
+        # raise Roda::RodaPlugins::TypecastParams::Error if volume_params.is_a?(Dry::Validation::Result)  
         result = ReferenceBooks::CreateService.call(
           volume: volume_params[:volume],
-          content: params[:content]
+          content: r.params[:content]
         )
-
         if result.success?
           response.status = 201
           {data: result.reference_book}

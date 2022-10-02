@@ -3,7 +3,9 @@
 # Update schema
 
 dump_schema = lambda do 
-  schema = DB.dump_schema_migration
+  # https://sequel.jeremyevans.net/rdoc-plugins/classes/Sequel/SchemaDumper.html#method-i-dump_schema_migration
+  # schema = DB.dump_schema_migration(same_db: true) # bad result
+  schema = `sequel -D #{DB.opts[:uri]}` # great!
   body = '# Version: ' + Time.now.strftime("%Y%m%d%H%M%S\n") + schema
   File.open("db/schema.rb", 'w') {|f| f.write(body) }
 end
