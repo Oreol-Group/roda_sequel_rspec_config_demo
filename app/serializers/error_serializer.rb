@@ -19,11 +19,9 @@ module ErrorSerializer
 
   private
 
-
   def build_hash_error(message)
     key = message.keys.first
-    value = I18n.t(:blank, scope: "model.errors.reference_book.#{key}")
-    error = { detail: value }
+    error = { detail: message[key] }
     error[:source] = { pointer: "/data/attributes/#{key}" }
     error
   end

@@ -55,7 +55,9 @@ class App < Roda
       error_response e.message, meta: {'meta' => I18n.t(:missing_parameters, scope: 'api.errors')}
     when NameError # Dry::Validation::Result  -  #  3-d catch
       response.status = 422
-      error_response @dry_validation_response
+      key = @dry_validation_response.keys.first
+      value = I18n.t(:blank, scope: "model.errors.reference_book.#{key}", :default => @dry_validation[key])
+      error_response({key => value})
     else
       response.status = 500
       error_response e.message, meta: {'meta' => e.class }
