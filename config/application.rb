@@ -26,7 +26,7 @@ class App < Roda
     'Content-Type'=>'application/json'
 
   logger = if ENV['RACK_ENV'] == 'test'
-    Class.new{def write(_) end}.new
+    Logger.new('/dev/null')
   else
     $stderr
   end
