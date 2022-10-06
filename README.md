@@ -57,21 +57,22 @@ According to the [Sequel documentation](https://github.com/jeremyevans/sequel#co
 $ bundle install
 ```
 ## Run App
-Either set up configuration into `config/initializers/config.rb`, `config/settings/*.yml` and `config/*.yml` before running
+You can either set up configuration into `config/initializers/config.rb`, `config/settings/*.yml` and `config/*.yml` before running
 
 ```bash
 $ bin/puma
 $ bin/console
 ```
-or run the application with modified configuration using environment variables
+or run the application with modified configuration using environment variables as well
 ```bash
 $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/puma
 $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/console
 ```
 ## HTTP-requests to the app
+Use the URL port setting in `config/puma.rb` to manage multiple microservices in the same environment.
 ```bash
-$ curl --url "http://localhost:9292" -v
-$ http :9292
+$ curl --url "http://localhost:3000" -v
+$ http :3000
 ```
 ## Run tests
 ```bash
