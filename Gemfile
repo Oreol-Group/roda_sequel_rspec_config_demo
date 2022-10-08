@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'rake'
 gem 'puma'
+gem 'rake'
 
-gem 'roda', require: 'roda'
-gem 'rack', '= 2.2.4'
 gem 'rack-unreloader', require: 'rack/unreloader'
+gem 'roda', require: 'roda'
 
-gem 'i18n', require: 'i18n'
 gem 'config'
+gem 'i18n', require: 'i18n'
 
 gem 'sequel'
 gem 'sequel_pg', require: 'sequel'
@@ -24,12 +23,16 @@ gem 'dry-validation'
 
 group :development do
   gem 'pry'
+end
+
+group :development, :test do
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
-  gem 'rspec'
+  gem 'database_cleaner-sequel'
   gem 'factory_bot'
   gem 'rack-test'
-  gem 'database_cleaner-sequel'
+  gem 'rspec'
 end

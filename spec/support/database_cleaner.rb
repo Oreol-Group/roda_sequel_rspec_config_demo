@@ -10,7 +10,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.around(:each) do |example|
+  config.around do |example|
     DatabaseCleaner.cleaning { example.run }
   end
 

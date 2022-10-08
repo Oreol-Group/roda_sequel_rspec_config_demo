@@ -7,17 +7,17 @@ FactoryBot.define do
 
     trait :note_link do
       volume { 'Note' }
-      content { [{name: "n1", link: "l1"}] }
+      content { [{ name: 'n1', link: 'l1' }] }
     end
 
     trait :note_author do
       volume { 'Note' }
-      content { [{name: "n2", author: "a2"}] }
+      content { [{ name: 'n2', author: 'a2' }] }
     end
 
     trait :book do
       volume { 'Book' }
-      content { [{name: "n3", link: "l3", author: "a3", release: "r3", series: "s3"}] }
+      content { [{ name: 'n3', link: 'l3', author: 'a3', release: 'r3', series: 's3' }] }
     end
   end
 end

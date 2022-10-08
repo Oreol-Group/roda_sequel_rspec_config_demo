@@ -3,8 +3,9 @@
 ENV['RACK_ENV'] ||= 'development'
 
 begin
-  require_relative '../.env.rb'
+  require_relative '../.env'
 rescue LoadError
+  # do nothing
 end
 
 require 'bundler/setup'
@@ -17,9 +18,9 @@ if dev
   logger = Logger.new($stdout)
 end
 
-Unreloader = Rack::Unreloader.new(subclasses: %w'Roda Sequel::Model', logger: logger, reload: dev){App}
+Unreloader = Rack::Unreloader.new(subclasses: %w[Roda Sequel::Model], logger: logger, reload: dev) { App }
 
 require_relative 'application_loader'
 ApplicationLoader.load_app!
 
-Unreloader.require('config/application.rb'){'App'}
+Unreloader.require('config/application.rb') { 'App' }

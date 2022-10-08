@@ -5,9 +5,7 @@
 
 require 'sequel/model'
 
-if ENV['RACK_ENV'] == 'development'
-  Sequel::Model.cache_associations = false
-end
+Sequel::Model.cache_associations = false if ENV['RACK_ENV'] == 'development'
 
 # https://sequel.jeremyevans.net/plugins.html
 Sequel::Model.plugin :prepared_statements
@@ -22,15 +20,13 @@ unless defined?(Unreloader)
   Unreloader = Rack::Unreloader.new(reload: false)
 end
 
-Unreloader.require('app/models'){|f| Sequel::Model.send(:camelize, File.basename(f).delete_suffix('.rb'))}
+Unreloader.require('app/models') { |f| Sequel::Model.send(:camelize, File.basename(f).delete_suffix('.rb')) }
 
-if %w'development test'.include?(ENV['RACK_ENV'])
+if %w[development test].include?(ENV['RACK_ENV'])
   require 'logger'
   LOGGER = Logger.new($stdout)
   LOGGER.level = Logger::FATAL if ENV['RACK_ENV'] == 'test'
   DB.loggers << LOGGER
 end
 
-unless ENV['RACK_ENV'] == 'development'
-  Sequel::Model.freeze_descendents
-end
+Sequel::Model.freeze_descendents unless ENV['RACK_ENV'] == 'development'

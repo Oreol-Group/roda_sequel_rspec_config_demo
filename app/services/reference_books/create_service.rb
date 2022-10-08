@@ -19,13 +19,13 @@ module ReferenceBooks
     def call
       old_rb = ReferenceBook.first(volume: @volume)
       @reference_book = old_rb || ReferenceBook.new
-      arr = @reference_book.content.to_a 
+      arr = @reference_book.content.to_a
       arr << @content.to_h
       @reference_book.content = Sequel.pg_jsonb_wrap(arr)
       @reference_book.volume = @volume
 
       if @reference_book.valid?
-        @reference_book.save
+        @reference_book.save_changes
       else
         fail!(@reference_book.errors)
       end
