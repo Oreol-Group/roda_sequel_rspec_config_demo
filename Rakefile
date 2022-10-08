@@ -153,7 +153,7 @@ task :setup, [:name] do |_t, args|
                .gsub('App}', "#{name}}")
                .gsub('APP_', "#{upper_name}_"))
   end
-  %w[app/routes/api/v1/reference_books.rb spec/routes/api/v1/reference_books_spec.rb].each do |f|
+  %w[app/routes/api/v1/reference_books.rb spec/routes/api/v1/app_spec.rb].each do |f|
     File.write(f, File.read(f).gsub('App', name))
   end
 
