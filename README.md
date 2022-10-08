@@ -18,9 +18,7 @@ $ curl \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer <YOUR-TOKEN>" \
-  -H "Name: my_app" \
-  -H "description: Some information" \
-  https://api.github.com/user/repos
+  https://api.github.com/user/repos \
   -d'{"name":"my_app", "description":"Some information"}'
 $ git remote add origin git@github.com:USER_NAME/my_app.git 
 $ git add . && git commit -m 'init project'
@@ -51,13 +49,13 @@ else
   ENV['MY_APP_DATABASE_URL'] ||= "postgres://my_app:mypassword@127.0.0.1:5432/my_app_development"
 end
 ```
-According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` in `config/settings/*.yml` and `config/*.yml`
+According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` in `config/settings/*.yml` and `config/settings.yml` or `config/settings.local.yml`
 ## Environment setup
 ```bash
 $ bundle install
 ```
 ## Run App
-You can either set up configuration into `config/initializers/config.rb`, `config/settings/*.yml` and `config/*.yml` before running
+You can either set up configuration into `config/initializers/config.rb`, `config/settings/*.yml` and `config/settings.yml` or `config/settings.local.yml` before running
 
 ```bash
 $ bin/puma
