@@ -130,16 +130,17 @@ task :setup, [:name] do |_t, args|
 
   File.write('.env.rb', <<~ENV_FILE)
     # frozen_string_literal: true
+
     case ENV['RACK_ENV'] ||= 'development'
     when 'test'
-      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack('m')[0]
-      ENV['#{upper_name}_DATABASE_URL'] ||= "postgres://user:password@127.0.0.1:5432/#{lower_name}_test"
+      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack1('m')
+      ENV['#{upper_name}_DATABASE_URL'] ||= 'postgres://user:password@127.0.0.1:5432/#{lower_name}_test'
     when 'production'
-      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack('m')[0]
-      ENV['#{upper_name}_DATABASE_URL'] ||= "postgres://user:password@127.0.0.1:5432/#{lower_name}_production"
+      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack1('m')
+      ENV['#{upper_name}_DATABASE_URL'] ||= 'postgres://user:password@127.0.0.1:5432/#{lower_name}_production'
     else
-      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack('m')[0]
-      ENV['#{upper_name}_DATABASE_URL'] ||= "postgres://user:password@127.0.0.1:5432/#{lower_name}_development"
+      ENV['#{upper_name}_SESSION_SECRET'] ||= #{random_bytes.call}.unpack1('m')
+      ENV['#{upper_name}_DATABASE_URL'] ||= 'postgres://user:password@127.0.0.1:5432/#{lower_name}_development'
     end
   ENV_FILE
 

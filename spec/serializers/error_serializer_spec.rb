@@ -85,4 +85,52 @@ RSpec.describe ErrorSerializer do
       expect(error_serializer.from_model(model)).to eq(message)
     end
   end
+
+  describe 'from_hash' do
+    context 'with single key' do
+      let(:source) { { 'key': 'error' } }
+      let(:message) do
+        {
+          errors: [
+            {
+              detail: %(error),
+              source: {
+                pointer: '/data/attributes/key'
+              }
+            }
+          ]
+        }
+      end
+
+      it 'returns errors representation' do
+        expect(error_serializer.from_hash(source)).to eq(message)
+      end
+    end
+
+    context 'with multiple keys' do
+      let(:source) { { 'key1': 'error1', 'key2': 'error2' } }
+      let(:message) do
+        {
+          errors: [
+            {
+              detail: %(error1),
+              source: {
+                pointer: '/data/attributes/key1'
+              }
+            },
+            {
+              detail: %(error2),
+              source: {
+                pointer: '/data/attributes/key2'
+              }
+            }
+          ]
+        }
+      end
+
+      it 'returns errors representation' do
+        expect(error_serializer.from_hash(source)).to eq(message)
+      end
+    end
+  end
 end

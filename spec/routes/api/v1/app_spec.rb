@@ -49,7 +49,7 @@ RSpec.describe App, type: :routes do
         )
       end
 
-      it 'has status 201' do
+      it 'has status 422' do
         post '/api/v1/reference_books', volume: volume_params, content: content_params
 
         expect(last_response.status).to eq(422)

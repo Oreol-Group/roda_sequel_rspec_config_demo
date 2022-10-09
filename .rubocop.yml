@@ -1,6 +1,10 @@
 require:
   - rubocop-rspec
 
+RSpec/FilePath:
+  Exclude:
+    - spec/routes/**/*
+
 RSpec/ExampleLength:
   Max: 10
 

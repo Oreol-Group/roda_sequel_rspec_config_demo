@@ -17,7 +17,7 @@ class App
           PAGE_FIRST
         end
 
-        # hhttps://sequel.jeremyevans.net/rdoc/classes/Sequel/Dataset.html
+        # https://sequel.jeremyevans.net/rdoc/classes/Sequel/Dataset.html
         reference_books = ReferenceBook.reverse_order(:updated_at)
                                        .paginate(page.to_i, Settings.pagination.page_size)
 
