@@ -1,7 +1,18 @@
-# RodaSequelRspecConfig
-Application skeleton based on Roda
+# RodaSequelRspecConfig (Demo Service)
+Simplest RESTful Web Service based on Roda
 
-RodaSequelRspecConfig is a preconfigured Rails-like application skeleton for an app using [Roda](https://github.com/jeremyevans/roda) as the web framework, [Sequel](https://github.com/jeremyevans/sequel) as the database library, [Rspec](https://github.com/rspec/rspec-metagem) as test suite, and is being configured using [Config](https://github.com/rubyconfig/config).
+## General description of the web service
+This is a bibliographic catalog designed to collect the reference list, that has been splitted on topics. When saving the reference, you must specify the topic, which becomes the name of the reference-book (`volume`). Each reference (`content`) consists of optional parameters: `name` (it means title), `link` (URL), `author` (name and surname), `release` (year), `series` (category). There are only two methods implemented here:
+```bash
+# add the new reference 
+$ http -f post ":3000/api/v1/reference_books" "volume=Roda" "content[name]=Documentation for Roda" "content[link]=https://roda.jeremyevans.net/documentation.html" "content[author]=Jeremy Evans"
+
+# get entire catalog page by page
+$ http -f get ":3000/api/v1/reference_books" "page=1"
+```
+
+## About the Application
+RodaSequelRspecConfig is a preconfigured Rails-like application skeleton for an app using [Roda](https://github.com/jeremyevans/roda) as the web framework, [Sequel](https://github.com/jeremyevans/sequel) as the database library, [Rspec](https://github.com/rspec/rspec-metagem) as test suite, and is being configured using [Config](https://github.com/rubyconfig/config). You can download this app without the built-in demo service from [here](https://github.com/Oreol-Group/roda_sequel_rspec_config).
 
 It's set up so you can clone this repository and base your application on it:
 ```bash
@@ -25,6 +36,7 @@ $ git add . && git commit -m 'init project'
 $ git push -u origin master
 ```
 For more details, see the [github docs](https://docs.github.com/en/rest/repos/repos#create-a-repository-for-the-authenticated-user)
+
 ## Database Setup
 By default Sequel assumes a PostgreSQL database, with an application specific PostgreSQL database account.  You can create this via:
 ```bash
@@ -50,10 +62,12 @@ else
 end
 ```
 According to the [Sequel documentation](https://github.com/jeremyevans/sequel#connecting-to-a-database-), you can also specify optional parameters `Settings.db` in `config/settings/*.yml` and `config/settings.yml` or `config/settings.local.yml`
+
 ## Environment setup
 ```bash
 $ bundle install
 ```
+
 ## Run App
 You can either set up configuration into `config/initializers/config.rb`, `config/settings/*.yml` and `config/settings.yml` or `config/settings.local.yml` before running
 
@@ -66,16 +80,19 @@ or run the application with modified configuration using environment variables a
 $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/puma
 $ RACK_ENV=test ENV__PAGINATION__PAGE_SIZE=100 bin/console
 ```
+
 ## HTTP-requests to the app
 Use the URL port setting in `config/puma.rb` to manage multiple microservices in the same environment.
 ```bash
 $ curl --url "http://localhost:3000" -v
 $ http :3000
 ```
+
 ## Run tests
 ```bash
 $ bin/rspec
 ```
+
 ## Additional tips
 1. Use a timestamp for the new migration filename:
 ```bash
@@ -113,6 +130,7 @@ $ bin/rake --tasks
 $ bin/sequel -d postgres://user:pass@host/database_name
 $ bin/sequel -D postgres://user:pass@host/database_name
 ```
+
 ## Author
 * it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config
 * Inspired by [Jeremy Evans](https://github.com/jeremyevans/roda-sequel-stack) and [Evgeniy Fateev](https://github.com/psylone/ads-microservice)
