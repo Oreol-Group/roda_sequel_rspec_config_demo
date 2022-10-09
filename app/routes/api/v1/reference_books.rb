@@ -26,13 +26,17 @@ class App
 
       r.post do
         volume_params = validate_with!(::ContentParamsContract)
+
         error = volume_params.errors.to_hash
-        #  the 3-d Dry::Validation's catch
-        @dry_validation_response = error if error.present?
-        # raise Roda::RodaPlugins::TypecastParams::Error if volume_params.is_a?(Dry::Validation::Result)
+        if error.present?
+          #  the 3-d Dry::Validation's catch
+          @dry_validation_response = error
+          raise NameError
+        end
+
         result = ReferenceBooks::CreateService.call(
           volume: volume_params[:volume],
-          content: r.params[:content]
+          content: volume_params[:content]
         )
         if result.success?
           response.status = 201

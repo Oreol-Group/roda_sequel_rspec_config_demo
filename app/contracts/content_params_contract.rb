@@ -5,6 +5,13 @@ require 'dry/validation'
 class ContentParamsContract < Dry::Validation::Contract
   params do
     required(:volume)
+    optional(:content).hash do
+      optional(:name).value(:string)
+      optional(:link).value(:string)
+      optional(:author).value(:string)
+      optional(:release).value(:integer)
+      optional(:series).value(:string)
+    end
   end
 
   # https://dry-rb.org/gems/dry-validation/1.8/
