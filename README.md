@@ -16,7 +16,7 @@ RodaSequelRspecConfig is a preconfigured Rails-like application skeleton for an 
 
 It's set up so you can clone this repository and base your application on it:
 ```bash
-$ git clone git@github.com:Oreol-Group/roda_sequel_rspec_config.git my_app && cd my_app && rake "setup[MyApp]"
+$ git clone git@github.com:Oreol-Group/roda_sequel_rspec_config_demo.git my_app && cd my_app && rake "setup[MyApp]"
 ```
 Initialize and configure a new Git repository (you need to have a [personal access token](https://github.com/settings/tokens)):
 ```bash
@@ -132,5 +132,5 @@ $ bin/sequel -D postgres://user:pass@host/database_name
 ```
 
 ## Author
-* it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config
+* it.Architect https://github.com/Oreol-Group/roda_sequel_rspec_config_demo
 * Inspired by [Jeremy Evans](https://github.com/jeremyevans/roda-sequel-stack) and [Evgeniy Fateev](https://github.com/psylone/ads-microservice)
